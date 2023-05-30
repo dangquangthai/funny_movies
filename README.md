@@ -1,24 +1,31 @@
-# README
+## Introduction 
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+A brief overview of the project, its purpose, and key features.
 
-Things you may want to cover:
+## Prerequisites
 
-* Ruby version
+List required software and tools, along with their appropriate versions.
 
-* System dependencies
+## Installation & Configuration
 
-* Configuration
+Step-by-step instructions for cloning the repository, installing dependencies, and configuring settings.
 
-* Database creation
+## Database Setup
 
-* Database initialization
+Instructions for setting up the database, running migrations, and seeding data if necessary.
 
-* How to run the test suite
+## Running the Application
 
-* Services (job queues, cache servers, search engines, etc.)
+How to start the development server, access the application in a web browser, and run the test suite.
 
-* Deployment instructions
+## (BE/FS) Docker Deployment
 
-* ...
+Instructions for deploying the application using Docker, including building the Docker image and running containers (optional for Backend developer)
+
+## Usage
+
+A brief guide outlining how to use the application, including any specific features or functionality the reviewer should be aware of.
+
+## Troubleshooting
+
+Common issues that may arise during setup and their potential solutions.
