@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "build": "esbuild app/javascript/*.* --bundle --sourcemap --outdir=app/assets/builds --public-path=assets"
+  },
+  "name": "Funny Movies",
+  "version": "1.0.0",
+  "repository": "git@github.com:dangquangthai/funny_movies.git",
+  "author": "Thai Dang",
+  "license": "MIT"
+}
