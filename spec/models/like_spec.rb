@@ -1,6 +1,8 @@
 require 'rails_helper'
 
 RSpec.describe Like, type: :model do
+  fixtures :videos
+
   describe '.validations' do
     it { should validate_presence_of(:user) }
 
@@ -18,5 +20,21 @@ RSpec.describe Like, type: :model do
     it { should belong_to(:user) }
 
     it { should belong_to(:likeable) }
+  end
+
+  describe '.counter_cache #likes_count' do
+    context 'when creating a like' do
+      let(:video) { videos(:underwater_killer) }
+
+      before do
+        expect(video.likes_count).to eq(0)
+      end
+
+      it 'increments likes_count on video when a like is created' do
+        expect {
+          create(:like, likeable: video)
+        }.to change { video.reload.likes_count }.by(1)
+      end
+    end
   end
 end
