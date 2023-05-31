@@ -2,6 +2,6 @@
 
 class VideosController < ApplicationController
   def index
-    @pagy, @videos = pagy(Video.all, page: page, items: per_page)
+    @pagy, @videos = pagy(Video.includes(:user), page: page, items: per_page)
   end
 end
