@@ -1,0 +1,10 @@
+DEFAULTS: &user_settings
+  password: ThisIs@Very5Pass
+
+smith:
+  <<: *user_settings
+  email: smith@remitano.com
+
+john:
+  <<: *user_settings
+  email: john@remitano.com
