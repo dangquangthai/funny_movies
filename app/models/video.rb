@@ -1,4 +1,6 @@
 class Video < ApplicationRecord
+  include Likeable
+
   SOURCES = %w[youtube vimeo].freeze
 
   validates :source, :source_id, :title, presence: true
