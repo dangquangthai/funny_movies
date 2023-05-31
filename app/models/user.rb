@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
@@ -7,8 +9,8 @@ class User < ApplicationRecord
   has_many :videos, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true,
-    format: {
-      with: Devise.email_regexp,
-      message: 'must be a valid email address'
-    }
+                    format: {
+                      with: Devise.email_regexp,
+                      message: 'must be a valid email address'
+                    }
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ApplicationHelper
   def material_icon(icons, **options)
     options[:class] = "#{options[:class]} material-icons material-symbols-outlined".strip

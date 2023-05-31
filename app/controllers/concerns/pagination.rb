@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Pagination
   extend ActiveSupport::Concern
 
   included do
     include Pagy::Backend
-  
+
     def page
       @page ||= params[:page]&.to_i || 1
     end

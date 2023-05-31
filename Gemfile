@@ -65,6 +65,9 @@ group :development, :test do
   gem 'rspec-rails', '~> 6.0.2'
   gem 'shoulda-matchers', '~> 5.3'
   gem 'bullet', '~> 7.0.7'
+  gem 'rubocop', '~> 1.51', require: false
+  gem 'rubocop-rails', '~> 2.19.1', require: false
+  gem 'rubocop-performance', '~> 1.18', require: false
 end
 
 group :development do
