@@ -1,5 +1,6 @@
 class Video < ApplicationRecord
   include Likeable
+  include Dislikeable
 
   SOURCES = %w[youtube vimeo].freeze
 

@@ -10,7 +10,18 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_05_31_040139) do
+ActiveRecord::Schema[7.0].define(version: 2023_05_31_045616) do
+  create_table "dislikes", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "dislikeable_type", null: false
+    t.integer "dislikeable_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["dislikeable_type", "dislikeable_id", "user_id"], name: "index_dislikes_on_dislikeable_and_user", unique: true
+    t.index ["dislikeable_type", "dislikeable_id"], name: "index_dislikes_on_dislikeable"
+    t.index ["user_id"], name: "index_dislikes_on_user_id"
+  end
+
   create_table "likes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "likeable_type", null: false
@@ -43,6 +54,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_05_31_040139) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "likes_count", default: 0, null: false
+    t.integer "dislikes_count", default: 0, null: false
     t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
