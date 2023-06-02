@@ -1,0 +1,9 @@
+<%= turbo_frame_tag 'engagements-user-logged-state' do %>
+  <div class="flex justify-end items-center">
+    <% if user_signed_in? %>
+      <%= render Engagements::UserLoggedInComponent.new %>
+    <% else %>
+      <%= render Engagements::UserLoggedOutComponent.new %>
+    <% end %>  
+  </div>
+<% end %>

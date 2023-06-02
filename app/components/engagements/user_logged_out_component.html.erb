@@ -1,8 +1,23 @@
-<%= form_for User.new, as: :user, url: '/users/sign_in' do |f| %>
+<%= form_for User.new, as: :user, url: custom_sign_in_path do |f| %>
   <div class="flex gap-2 md:gap-4">
-    <input type="email" name="user[email]" autocomplete="off" placeholder="Email" class="input w-36 md:w-44">
-    <input type="password" name="user[password]" autocomplete="off" placeholder="Password" class="input w-36 md:w-44">
+    <input
+      type="email"
+      required
+      name="user[email]"
+      autocomplete="off"
+      placeholder="Email"
+      class="input w-36 md:w-44">
+
+    <input 
+      type="password"
+      required
+      name="user[password]"
+      autocomplete="off"
+      placeholder="Password"
+      class="input w-36 md:w-44">
+
     <button type="submit" class="btn btn-primary">Sign In</button>
-    <a class="btn btn-secondary">Sign Up</a>
+
+    <a class="btn btn-secondary" href="<%= new_user_registration_path %>" target="_top">Sign Up</a>
   </div>
 <% end %>

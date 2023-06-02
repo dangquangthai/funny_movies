@@ -1,0 +1,5 @@
+<div class="flex gap-2 md:gap-4 items-center">
+  <div>Welcome <%= current_user.email %></div>
+  <a class="btn btn-primary" href="<%= new_user_registration_path %>" target="_top">Share a movie</a>
+  <a class="btn btn-secondary" href="<%= custom_sign_out_path %>" data-turbo-method="delete">Sign Out</a>
+</div>

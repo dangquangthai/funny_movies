@@ -1,6 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  devise_scope :user do
+    post   '/custom/users/sign_in', to: 'users/sessions#create', as: :custom_sign_in
+    delete '/custom/users/sign_out', to: 'users/sessions#destroy', as: :custom_sign_out
+  end
 
   # Defines the root path route ("/")
   root "videos#index"

@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 module Engagements
-  class UserLoggedOutComponent < ApplicationComponent
+  class UserLoggedInComponent < ApplicationComponent
   end
 end
