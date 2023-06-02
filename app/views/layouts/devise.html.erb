@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <%= render 'shared/head_tag' %>
+
+  <body>
+    <main class="container mx-auto sm:px-0 px-2">
+      <header class="grid gap-2 md:flex md:gap-4 py-3">
+        <%= render 'shared/logo_and_banner' %>
+      </header>
+      <hr class="text-black">
+      <div class="md:w-[400px] w-100 mx-auto mt-10">
+        <%= yield %>
+      </div>
+    </main>
+  </body>
+</html>

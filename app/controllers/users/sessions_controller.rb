@@ -7,10 +7,6 @@ module Users
 
     def create; end
 
-    def destroy
-      super
-    end
-
     protected
 
     def respond_to_on_destroy
