@@ -1,8 +1,15 @@
-<header class="flex gap-2 md:gap-4 items-center py-3">
-  <%== material_icon('home', class: 'text-4xl') %>
+<header class="grid gap-2 md:flex md:gap-4 py-3">
+  <div class="md:flex-none flex gap-2 items-center">
+    <%== material_icon('home', class: 'text-4xl') %>
 
-  <div class="font-bold text-3xl">
-    Funny Movies
+    <div class="font-bold text-3xl w-full">
+      Funny Movies
+    </div>
+  </div>
+
+  <div class="md:grow md:flex md:justify-end md:items-center">
+    <hr class="text-black md:hidden mb-3">
+    <%= turbo_frame_tag 'engagements-user-logged-state', src: engagements_user_logged_state_path %>
   </div>
 </header>
 <hr class="text-black">

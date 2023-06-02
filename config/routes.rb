@@ -6,4 +6,8 @@ Rails.application.routes.draw do
   root "videos#index"
 
   resources :videos, only: [:index, :new, :create]
+
+  namespace :engagements do
+    get 'user_logged_state', to: 'user_logged_state#index', as: :user_logged_state
+  end
 end
