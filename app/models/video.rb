@@ -8,7 +8,7 @@ class Video < ApplicationRecord
 
   SOURCES = %w[youtube vimeo].freeze
 
-  validates :source, :source_id, :source_url, :title, presence: true
+  validates :source_url, presence: true
   validates :source, inclusion: { in: SOURCES }
 
   belongs_to :user

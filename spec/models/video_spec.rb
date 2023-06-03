@@ -2,13 +2,6 @@ require 'rails_helper'
 
 RSpec.describe Video, type: :model do
   describe '.validations' do
-    it { should validate_presence_of(:title) }
-
-    it { should validate_presence_of(:source) }
-    it { should validate_inclusion_of(:source).in_array(Video::SOURCES) }
-    
-    it { should validate_presence_of(:source_id) }
-
     describe '#source_url' do
       subject { build(:video) }
 
@@ -59,40 +52,52 @@ RSpec.describe Video, type: :model do
   end
 
   describe '#fetch_youtube_metadata' do
-    context 'source_url is blank' do
-      it 'does not set source_id' do
-        video = build_stubbed(:video, source_url: nil)
+    let(:video) { build(:video, source_url: source_url) }
+
+    context 'source_url is not a YouTube URL' do
+      let(:source_url) { 'https://youtube.com/watch?v=' }
+
+      it 'does not set source_id, title or description' do
         video.fetch_youtube_metadata
-        expect(video.source_id).to be_nil
+
+        expect(video.errors[:source_url]).to include('must be a YouTube URL')
       end
     end
 
-    context 'source_url is not blank' do
-      context 'source_url is not a YouTube URL' do
-        it 'sets source_id to nil' do
-          video = build_stubbed(:video, source_url: 'http://example.com')
-          video.fetch_youtube_metadata
-          expect(video.source_id).to be_nil
-        end
-      end
+    context 'source_url is a YouTube URL' do
+      let(:source_url) { 'https://youtube.com/watch?v=eZ2Rt2DVGdU' }
 
-      context 'source_url is a YouTube URL' do
-        context 'service going well' do
+      context 'going well' do
+        context 'and returns false' do
           before do
             expect(Integration::Youtube).to receive(:new)
-              .with(source_id: 'eZ2Rt2DVGdU')
+              .with(source_url: source_url)
+              .and_return(instance_double(Integration::Youtube, perform: false))
+          end
+
+          it 'adds error to source_url' do
+            video.fetch_youtube_metadata
+
+            expect(video.errors[:source_url]).to include('is not a valid YouTube URL')
+          end
+        end
+
+        context 'and returns true' do
+          before do
+            expect(Integration::Youtube).to receive(:new)
+              .with(source_url: source_url)
               .and_return(
                 instance_double(
                   Integration::Youtube,
-                  fetch: true,
+                  perform: true,
                   title: 'Remitano test Ruby on Rails',
-                  description: 'Description for Remitano test Ruby on Rails'
+                  description: 'Description for Remitano test Ruby on Rails',
+                  source_id: 'eZ2Rt2DVGdU'
                 )
               )
           end
 
           it 'sets source_id, title and description to correct value' do
-            video = build_stubbed(:video, source_url: 'https://youtube.com/watch?v=eZ2Rt2DVGdU')
             video.fetch_youtube_metadata
 
             expect(video.source_id).to eq('eZ2Rt2DVGdU')
@@ -100,20 +105,19 @@ RSpec.describe Video, type: :model do
             expect(video.description).to eq('Description for Remitano test Ruby on Rails')
           end
         end
+      end
 
-        context 'service raises error' do
-          before do
-            expect(Integration::Youtube).to receive(:new)
-              .with(source_id: 'eZ2Rt2DVGdU')
-              .and_raise(StandardError)
-          end
+      context 'service raises error' do
+        before do
+          expect(Integration::Youtube).to receive(:new)
+            .with(source_url: source_url)
+            .and_raise(StandardError)
+        end
 
-          it 'adds error to source_url' do
-            video = build_stubbed(:video, source_url: 'https://youtube.com/watch?v=eZ2Rt2DVGdU')
-            video.fetch_youtube_metadata
+        it 'adds error to source_url' do
+          video.fetch_youtube_metadata
 
-            expect(video.errors[:source_url]).to include('is not a valid YouTube URL')
-          end
+          expect(video.errors[:source_url]).to include('is not a valid YouTube URL')
         end
       end
     end

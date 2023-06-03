@@ -19,24 +19,27 @@ module Youtubeable
     end
 
     def fetch_youtube_metadata
-      self.source_id = extract_youtube_id
+      return unless valid?
 
-      return if source_id.blank?
-
-      service = Integration::Youtube.new(source_id: source_id)
-      service.fetch
-      self.title = service.title
-      self.description = service.description
+      if youtube_integrator.perform
+        build_youtube_attibutes
+      else
+        errors.add(:source_url, 'is not a valid YouTube URL')
+      end
     rescue StandardError
       errors.add(:source_url, 'is not a valid YouTube URL')
     end
 
     protected
 
-    def extract_youtube_id
-      return if source_url.blank?
+    def youtube_integrator
+      @youtube_integrator ||= Integration::Youtube.new(source_url: source_url)
+    end
 
-      YOUTUBE_URL_REGEX.match(source_url).try(:captures)&.first
+    def build_youtube_attibutes
+      self.source_id = youtube_integrator.source_id
+      self.title = youtube_integrator.title
+      self.description = youtube_integrator.description
     end
   end
 end

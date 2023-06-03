@@ -1,41 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe Integration::Youtube, type: :service do
-  subject { Integration::Youtube.new(source_id: youtube_id) }
+  subject { Integration::Youtube.new(source_url: youtube_url) }
 
-  describe '#fetch' do
-    context 'youtube_id is blank' do
-      let(:youtube_id) { nil }
+  describe '#perform' do
+    context 'youtube_url is not a valid YouTube ID' do
+      let(:youtube_url) { "https://www.youtube.com/watch?v=#{Faker::Alphanumeric.alphanumeric(number: 10)}" }
 
       it 'does not set title or description' do
-        subject.fetch
+        expect(subject.perform).to be false
 
         expect(subject.title).to be_nil
         expect(subject.description).to be_nil
       end
     end
 
-    context 'youtube_id is not blank' do
-      context 'youtube_id is not a valid YouTube ID' do
-        let(:youtube_id) { 'invalid' }
+    context 'youtube_url is a valid YouTube ID' do
+      let(:youtube_url) { 'https://www.youtube.com/watch?v=rKtzj_9vl8Q' }
 
-        it 'does not set title or description' do
-          subject.fetch
+      it 'sets title and description' do
+        expect(subject.perform).to be true
 
-          expect(subject.title).to be_empty
-          expect(subject.description).to be_present
-        end
-      end
-
-      context 'youtube_id is a valid YouTube ID' do
-        let(:youtube_id) { 'rKtzj_9vl8Q' }
-
-        it 'sets title and description' do
-          subject.fetch
-
-          expect(subject.title).to eq('The Flood (Full Episode) | SPECIAL')
-          expect(subject.description).to include("Each year, the arrival of a miracle flood transforms a desert into a water wonderland")
-        end
+        expect(subject.title).to eq('The Flood (Full Episode) | SPECIAL')
+        expect(subject.description).to include("Each year, the arrival of a miracle flood transforms a desert into a water wonderland")
       end
     end
   end

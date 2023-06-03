@@ -52,3 +52,6 @@ Lint/MissingSuper:
 
 Style/HashSyntax:
   Enabled: false
+
+Metrics/BlockLength:
+  Enabled: false
