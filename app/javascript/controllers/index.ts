@@ -6,3 +6,6 @@ import { application } from "./application"
 
 import RedirectController from "./redirect_controller"
 application.register("redirect", RedirectController)
+
+import NotificationController from "./notification_controller"
+application.register("notification", NotificationController)

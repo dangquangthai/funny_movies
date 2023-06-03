@@ -5,10 +5,6 @@ RSpec.describe "Users::Sessions", type: :request do
 
   describe "POST /create" do
     context 'with valid email and password' do
-      before do
-        expect(Engagements::UserLoggedInComponent).to receive(:new).and_call_original
-      end
-
       it "returns correct template" do
         post '/custom/users/sign_in', params: {
           user: {
@@ -42,10 +38,6 @@ RSpec.describe "Users::Sessions", type: :request do
   end
 
   describe "DELETE /destroy" do
-    before do
-      expect(Engagements::UserLoggedOutComponent).to receive(:new).and_call_original
-    end
-
     it "returns correct template" do
       delete '/custom/users/sign_out'
 

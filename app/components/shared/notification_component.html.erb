@@ -1,0 +1,8 @@
+<% flash.to_h.each do |type, message| %>
+  <div data-controller="notification" class="<%= css_class(type) %>">
+    <div class="grow"><%== message %></div>
+    <%== material_icon('close', class: 'flex-none', data: { action: 'click->notification#close' }) %>
+  </div>
+
+  <% flash.delete(type) %>
+<% end %>  
