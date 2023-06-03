@@ -9,7 +9,7 @@ RSpec.describe Like, type: :model do
     it { should validate_presence_of(:likeable) }
 
     it do
-      subject = create(:like)
+      subject = create(:like, likeable: videos(:big_game_of_thrones))
       should validate_uniqueness_of(:user_id)
         .scoped_to([:likeable_type, :likeable_id])
         .with_message('Video has already been liked')

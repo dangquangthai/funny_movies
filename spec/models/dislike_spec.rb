@@ -9,7 +9,7 @@ RSpec.describe Dislike, type: :model do
     it { should validate_presence_of(:dislikeable) }
 
     it do
-      subject = create(:dislike)
+      subject = create(:dislike, dislikeable: videos(:underwater_killer))
       should validate_uniqueness_of(:user_id)
         .scoped_to([:dislikeable_type, :dislikeable_id])
         .with_message('Video has already been disliked')

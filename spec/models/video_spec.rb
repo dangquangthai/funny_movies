@@ -8,6 +8,31 @@ RSpec.describe Video, type: :model do
     it { should validate_inclusion_of(:source).in_array(Video::SOURCES) }
     
     it { should validate_presence_of(:source_id) }
+    
+
+    describe '#source_url' do
+      subject { build(:video) }
+
+      it { should validate_presence_of(:source_url) }
+      it { should allow_values('https://youtube.com/watch?v=eZ2Rt2DVGdU').for(:source_url) }
+      it { should_not allow_values('http://example.com', 'https://youtube1.com').for(:source_url).with_message('must be a valid YouTube URL') }
+    end
+  end
+
+  describe '#source_url=' do
+    context 'when source is youtube' do
+      it 'sets the source_url' do
+        video = described_class.new(source: 'youtube', source_url: 'https://youtube.com/watch?v=eZ2Rt2DVGdU')
+        expect(video.source_id).to eq('eZ2Rt2DVGdU')
+      end
+    end
+
+    context 'when source is vimeo' do
+      it 'sets the source_url' do
+        video = described_class.new(source: 'vimeo', source_url: 'https://vimeo.com/112866269')
+        expect(video.source_id).to eq('not_implemented_yet')
+      end
+    end
   end
 
   describe '.associations' do
@@ -20,7 +45,7 @@ RSpec.describe Video, type: :model do
   describe '#youtube?' do
     context 'source is youtube' do
       it 'returns true' do
-        video = build_stubbed(:video, :youtube)
+        video = build_stubbed(:video)
         expect(video.youtube?).to be true
       end
     end
@@ -43,7 +68,7 @@ RSpec.describe Video, type: :model do
       
     context 'source is not vimeo' do
       it 'returns false' do
-        video = build_stubbed(:video, :youtube)
+        video = build_stubbed(:video)
         expect(video.vimeo?).to be false
       end
     end

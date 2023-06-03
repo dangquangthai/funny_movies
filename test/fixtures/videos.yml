@@ -3,6 +3,7 @@ underwater_killer:
   description: Nat Geo WILD gets up close with underwater killers lurking in our oceans. At first glance these underwater assassins may appear to be exotic beauties, but fo...
   source: youtube
   source_id: eZ2Rt2DVGdU
+  source_url: https://youtube.com/watch?v=eZ2Rt2DVGdU
   user_id: <%= ActiveRecord::FixtureSet.identify(:smith) %>
 
 big_game_of_thrones:
@@ -10,4 +11,5 @@ big_game_of_thrones:
   description: Rule of the kingdom is reserved for the strong. Five heroes, each with a unique power, head up rival clans struggling for power, clawing their way to the top...
   source: youtube
   source_id: HsAxx81QlwY
+  source_url: https://youtube.com/watch?v=HsAxx81QlwY
   user_id: <%= ActiveRecord::FixtureSet.identify(:john) %>
