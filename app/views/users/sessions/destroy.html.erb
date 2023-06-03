@@ -1,5 +1,3 @@
 <%= turbo_frame_tag 'engagements-user-logged-state' do %>
-  <div class="flex justify-end items-center">
-    <%= render Engagements::UserLoggedOutComponent.new %>
-  </div>
+  <%= turbo_redirect_tag root_path %>
 <% end %>

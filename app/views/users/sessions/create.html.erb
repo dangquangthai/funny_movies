@@ -1,7 +1,7 @@
 <%= turbo_frame_tag 'engagements-user-logged-state' do %>
   <div class="flex justify-end items-center">
     <% if user_signed_in? %>
-      <%= render Engagements::UserLoggedInComponent.new %>
+      <%= turbo_redirect_tag root_path %>
     <% else %>
       <%= render Engagements::UserLoggedOutComponent.new %>
     <% end %>  
