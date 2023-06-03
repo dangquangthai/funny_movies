@@ -6,21 +6,37 @@ module Youtubeable
   # https://regex101.com/r/zhaTXK/1
   YOUTUBE_URL_REGEX = %r{(?:https?://)?(?:www\.)?youtu(?:\.be|be\.com)/(?:watch\?v=)?([\w-]{10,})}
 
-  # https://gist.github.com/afeld/1254889
-  EXTRACT_YOUTUBE_ID_REGEX = %r{(?<!href=")https?://(www\.)?(?:youtube(?:-nocookie)?\.com/(?:[^/\n\s]+/\S+/|(?:v|e(?:mbed)?)/|\S*?[?&]v=)|youtu\.be/)([a-zA-Z0-9_-]{11})(\?[a-z=/-_]*)?}i
-
   included do
+    scope :youtube, -> { where(source: 'youtube') }
+
     validates :source_url, format: {
       with: YOUTUBE_URL_REGEX,
-      message: 'must be a valid YouTube URL'
+      message: 'must be a YouTube URL'
     }, if: :youtube?
 
     def youtube?
       source == 'youtube'
     end
 
-    def extract_youtube_id(url)
-      EXTRACT_YOUTUBE_ID_REGEX.match(url).try(:captures).try(:reverse).try(:second)
+    def fetch_youtube_metadata
+      self.source_id = extract_youtube_id
+
+      return if source_id.blank?
+
+      service = Integration::Youtube.new(source_id: source_id)
+      service.fetch
+      self.title = service.title
+      self.description = service.description
+    rescue StandardError
+      errors.add(:source_url, 'is not a valid YouTube URL')
+    end
+
+    protected
+
+    def extract_youtube_id
+      return if source_url.blank?
+
+      YOUTUBE_URL_REGEX.match(source_url).try(:captures)&.first
     end
   end
 end
