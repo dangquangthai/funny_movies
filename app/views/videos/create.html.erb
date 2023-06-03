@@ -1,0 +1,7 @@
+<%= turbo_frame_tag 'new-video' do %>
+  <% if flash.key?(:notice) %>
+    <%= turbo_redirect_tag root_path %>
+  <% else %>
+    <%= render Videos::NewComponent.new(video: @video) %>
+  <% end %>
+<% end %>

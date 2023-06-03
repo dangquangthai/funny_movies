@@ -2,7 +2,10 @@
 
 module Users
   class SessionsController < Devise::SessionsController
+    # rubocop:disable Rails/LexicallyScopedActionFilter
     skip_before_action :verify_authenticity_token, only: %i[destroy]
+    # rubocop:enable Rails/LexicallyScopedActionFilter
+
     layout false, only: %i[create destroy]
 
     def create; end
