@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_06_03_004921) do
+ActiveRecord::Schema[7.0].define(version: 2023_06_04_052452) do
   create_table "dislikes", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "dislikeable_type", null: false
@@ -31,6 +31,21 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_004921) do
     t.index ["likeable_type", "likeable_id", "user_id"], name: "index_likes_on_likeable_type_and_likeable_id_and_user_id", unique: true
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["user_id"], name: "index_likes_on_user_id"
+  end
+
+  create_table "notifications", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "whodunit_id", null: false
+    t.string "notifiable_type", null: false
+    t.integer "notifiable_id", null: false
+    t.string "action", null: false
+    t.datetime "read_at"
+    t.datetime "notified_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notifiable_type", "notifiable_id"], name: "index_notifications_on_notifiable"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+    t.index ["whodunit_id"], name: "index_notifications_on_whodunit_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -59,4 +74,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_06_03_004921) do
     t.index ["user_id"], name: "index_videos_on_user_id"
   end
 
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "whodunit_id"
 end
