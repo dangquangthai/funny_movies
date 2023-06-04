@@ -20,7 +20,7 @@ RSpec.describe "Notifications", type: :request do
       end
 
       it 'returns http success' do
-        get '/notifications'
+        get '/notifications', as: :turbo_stream
 
         expect(response).to have_http_status(:success)
         expect(assigns(:notifications)).to be_present

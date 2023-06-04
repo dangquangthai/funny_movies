@@ -11,6 +11,7 @@ export default class SubscribeController extends Controller {
     });
 
     addEventListener('remitano.notification', this.onReceived.bind(this));
+    this.fetchNotifications();
   }
 
   onReceived(event) {
@@ -22,11 +23,19 @@ export default class SubscribeController extends Controller {
 
     switch (message.type) {
       case 'notification':
-        document.getElementById('notification-tag').reload();
+        this.fetchNotifications();
         break;
       case 'something':
         console.log('something is not supported yet');
         break;
     }
+  }
+
+  fetchNotifications() {
+    fetch(document.getElementById('notification-tag').dataset.src, {
+      headers: {
+        Accept: "text/vnd.turbo-stream.html",
+      },
+    }).then(r => r.text()).then(html => Turbo.renderStreamMessage(html));
   }
 }

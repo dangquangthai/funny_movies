@@ -7,9 +7,5 @@ class NotificationsController < ApplicationController
 
   def index
     @notifications = current_user.notifications.not_notified_yet
-
-    respond_to do |format|
-      format.html
-    end
   end
 end
