@@ -1,0 +1,21 @@
+notify_to_john:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:john) %>
+  whodunit_id: <%= ActiveRecord::FixtureSet.identify(:smith) %>
+  notifiable_id: <%= ActiveRecord::FixtureSet.identify(:underwater_killer) %>
+  notifiable_type: Video
+  action: shared_a_video
+  read_at: nil
+  notified_at: nil
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
+
+notify_to_smith:
+  user_id: <%= ActiveRecord::FixtureSet.identify(:smith) %>
+  whodunit_id: <%= ActiveRecord::FixtureSet.identify(:john) %>
+  notifiable_id: <%= ActiveRecord::FixtureSet.identify(:big_game_of_thrones) %>
+  notifiable_type: Video
+  action: shared_a_video
+  read_at: nil
+  notified_at: nil
+  created_at: <%= 1.day.ago %>
+  updated_at: <%= 1.day.ago %>
