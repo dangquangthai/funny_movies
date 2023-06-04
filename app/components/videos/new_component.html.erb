@@ -4,7 +4,7 @@
     <div class="grid gap-2 md:gap-4">
       <%= f.hidden_field :source %>
       <div class="field">
-        <%= f.label :source_url %>
+        <%= f.label :source_url, 'Youtube URL' %>
         <%= f.text_field :source_url, autofocus: true, autocomplete: "off", required: true, class: 'input' %>
       </div>
 
@@ -16,7 +16,7 @@
         </div>
       <% end %>
 
-      <button type="submit" class="btn btn-primary">Share</button>
+      <%= f.submit "Share", class: "btn btn-primary" %>
     </div>
   <% end %>
 </div>

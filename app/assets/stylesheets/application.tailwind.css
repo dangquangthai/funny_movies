@@ -17,10 +17,6 @@
     @apply resize-none shadow w-full border-slate-300 shadow-sm focus:border-slate-400 focus:ring-slate-400 rounded-md;
   }
 
-  .input.error {
-    @apply border-red-500 text-red-900 placeholder-red-300 focus:border-red-700 focus:ring-red-700;
-  }
-
   .btn {
     @apply cursor-pointer inline-flex items-center rounded-md border border-transparent shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 px-4 py-2;
   }
