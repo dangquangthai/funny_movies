@@ -14,5 +14,7 @@ RSpec.describe User, type: :model do
 
   describe '.associations' do
     it { should have_many(:videos).dependent(:destroy) }
+
+    it { should have_many(:notifications).dependent(:destroy) }
   end
 end

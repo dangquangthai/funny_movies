@@ -15,10 +15,4 @@ module ApplicationHelper
       content_tag :div, nil, data: { controller: 'redirect', url: url }
     end
   end
-
-  def turbo_notification_tag
-    turbo_stream.append('notification-tag') do
-      render Shared::NotificationComponent.new(flash: flash)
-    end
-  end
 end

@@ -7,8 +7,9 @@
       <%= yield %>
     </main>
     <div id="redirect-tag"></div>
-    <div id="notification-tag" class="grid gap-2 fixed top-4 left-4 z-10">
-      <%= render Shared::NotificationComponent.new(flash: flash) %>
-    </div>
+    <% if user_signed_in? %>
+      <%= render 'shared/notification_tag' %>
+      <div data-controller="subscribe" data-user-id="<%= current_user.id %>"></div>
+    <% end %>
   </body>
 </html>

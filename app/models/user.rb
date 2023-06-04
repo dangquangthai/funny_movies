@@ -7,6 +7,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   has_many :videos, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :email, presence: true, uniqueness: true,
                     format: {

@@ -12,4 +12,6 @@ class Video < ApplicationRecord
   validates :source, inclusion: { in: SOURCES }
 
   belongs_to :user
+
+  after_create_commit { SharedVideoJob.perform_async(id) }
 end

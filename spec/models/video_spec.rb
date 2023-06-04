@@ -19,6 +19,16 @@ RSpec.describe Video, type: :model do
     it { should have_many(:dislikes).dependent(:destroy) }
   end
 
+  describe '.callbacks' do
+    describe 'after_create' do
+      it 'should create a notification' do
+        video = build(:video)
+
+        expect { video.save }.to change(SharedVideoJob.jobs, :size).by(1)
+      end
+    end
+  end
+
   describe '#youtube?' do
     context 'source is youtube' do
       it 'returns true' do

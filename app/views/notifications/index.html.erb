@@ -1,0 +1,8 @@
+<turbo-frame id="notification-tag">
+  <%= turbo_stream.append 'notification-tag' do %>
+    <% @notifications.each do |notification| %>
+      <%= render Shared::FlashComponent.new_from_notification(notification: notification) %>
+      <% notification.mark_as_notified! %>
+    <% end %>
+  <% end %>
+</turbo-frame>
