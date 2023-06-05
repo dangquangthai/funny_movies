@@ -16,10 +16,4 @@ RSpec.describe 'Sign In', type: :system do
 
     i_can_see_list_of_shared_videos
   end
-
-  def i_can_sign_out
-    within('#engagements-user-logged-state') do
-      click_on 'Sign Out'
-    end
-  end
 end

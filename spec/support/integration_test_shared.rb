@@ -58,5 +58,11 @@ module IntegrationTest
         expect(page).to have_selector('div', text: 'Nat Geo WILD gets up close with underwater killers lurking in our oceans. At first glance these underwater assassins may appear to be exotic beauties, but fo...')
       end
     end
+
+    def i_can_sign_out
+      within('#engagements-user-logged-state') do
+        click_on 'Sign Out'
+      end
+    end
   end
 end
