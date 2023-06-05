@@ -10,5 +10,8 @@ application.register("redirect", RedirectController)
 import NotificationController from "./notification_controller"
 application.register("notification", NotificationController)
 
+import NotificationsController from "./notifications_controller"
+application.register("notifications", NotificationsController)
+
 import SubscribeController from "./subscribe_controller"
 application.register("subscribe", SubscribeController)

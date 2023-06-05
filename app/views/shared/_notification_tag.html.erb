@@ -1,4 +1,4 @@
-<div id="notification-tag" data-src="<%= notifications_path %>" class="grid gap-2 fixed top-0 left-0 z-10 p-4">
+<div id="notification-tag" data-controller="notifications" data-src="<%= notifications_path %>" class="grid gap-2 fixed top-0 left-0 z-10 p-4">
   <% flash.to_h.each do |type, message| %>
     <%= render Shared::FlashComponent.new(type: type, message: message) %>
     <% flash.delete(type) %>

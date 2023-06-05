@@ -1,20 +1,20 @@
 import { Controller } from "@hotwired/stimulus";
 import consumer from '../channels/consumer';
+import triggerEvent from '../helpers/dom_helper';
 
 export default class SubscribeController extends Controller {
   connect() {
     consumer.subscriptions.create('NotificationChannel', {
       received(message) {
-        const eventData = { bubbles: true, detail: message }
-        dispatchEvent(new CustomEvent('remitano.notification', eventData));
+        triggerEvent('remitano.onNotificationComming', message);
       }
     });
 
-    addEventListener('remitano.notification', this.onReceived.bind(this));
-    this.fetchNotifications();
+    addEventListener('remitano.onNotificationChannel', this.onNotificationChannel.bind(this));
+    triggerEvent('remitano.onNotificationComming', { type: 'notification' });
   }
 
-  onReceived(event) {
+  onNotificationChannel(event) {
     const message = event.detail;
 
     if (message.user_id !== this.element.dataset.userId) {
@@ -23,19 +23,11 @@ export default class SubscribeController extends Controller {
 
     switch (message.type) {
       case 'notification':
-        this.fetchNotifications();
+        triggerEvent('remitano.onNotificationComming', message);
         break;
       case 'something':
-        console.log('something is not supported yet');
+        triggerEvent('remitano.onSomethingHappening', message);
         break;
     }
-  }
-
-  fetchNotifications() {
-    fetch(document.getElementById('notification-tag').dataset.src, {
-      headers: {
-        Accept: "text/vnd.turbo-stream.html",
-      },
-    }).then(r => r.text()).then(html => Turbo.renderStreamMessage(html));
   }
 }
