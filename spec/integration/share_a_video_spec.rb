@@ -55,7 +55,7 @@ RSpec.describe 'Share a video', type: :system do
   end
 
   def i_can_see_notification_popup
-    within('#notification-tag') do
+    within('div[data-controller="notifications"]') do
       expect(page).to have_selector('div[data-controller="notification"]', count: 1)
       expect(page).to have_selector('div', text: 'Video shared successfully')
     end

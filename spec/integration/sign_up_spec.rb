@@ -91,7 +91,7 @@ RSpec.describe 'Sign Up', type: :system do
   end
 
   def i_can_see_welcome_notification_popup
-    within('#notification-tag') do
+    within('div[data-controller="notifications"]') do
       expect(page).to have_selector('div[data-controller="notification"]', count: 1)
       expect(page).to have_selector('div', text: 'Welcome! You have signed up successfully.')
     end
