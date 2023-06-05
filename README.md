@@ -46,7 +46,7 @@ OR
 v14.16.0 # on Ubuntu
 ```
 
-Install sqlite3 on ubuntu jsut do `sudo apt-get install sqlite3`. Install on macOS just do `brew install sqlite`. Check sqlite is ready by `sqlite3 --version` you will see similar message
+Install sqlite3 on ubuntu jsut do `sudo apt-get install sqlite3 libsqlite3-dev`. Install on macOS just do `brew install sqlite`. Check sqlite is ready by `sqlite3 --version` you will see similar message
 
 ```
 3.39.5 2022-10-14 20:58:05 554764a6e721fab307c63a4f98cd958c8428a5d9d8edfde951858d6fd02daapl
