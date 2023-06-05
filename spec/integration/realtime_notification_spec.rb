@@ -36,14 +36,14 @@ RSpec.describe 'Realtime notification', type: :system do
 
     within('#notification-tag') do
       expect(page).to have_selector('div[data-controller="notification"]', count: 1)
-      expect(page).to have_selector('div', text: 'john@remitano.com shared This is title video with you')
+      expect(page).to have_selector('div', text: 'John shared This is title video with you')
     end
 
     john_sharing_another_video
 
     within('#notification-tag') do
       expect(page).to have_selector('div[data-controller="notification"]', count: 2)
-      expect(page).to have_selector('div', text: 'john@remitano.com shared This is Another title video with you')
+      expect(page).to have_selector('div', text: 'John shared This is Another title video with you')
     end
   end
 

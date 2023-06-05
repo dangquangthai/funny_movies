@@ -37,7 +37,7 @@ RSpec.describe Notification, type: :model do
     it 'returns a message' do
       notification = build_stubbed(:notification)
 
-      expect(notification.to_flash_message).to eq("#{notification.whodunit.email} shared <strong>#{notification.title}</strong> video with you")
+      expect(notification.to_flash_message).to eq("#{notification.whodunit.name} shared <strong>#{notification.title}</strong> video with you")
     end
   end
 

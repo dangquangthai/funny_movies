@@ -19,7 +19,7 @@ class Notification < ApplicationRecord
   def to_flash_message
     case action
     when 'shared_a_video'
-      "#{whodunit.email} shared <strong>#{title}</strong> video with you"
+      "#{whodunit.name} shared <strong>#{title}</strong> video with you"
     end
   end
 
