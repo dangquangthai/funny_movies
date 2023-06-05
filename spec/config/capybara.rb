@@ -30,6 +30,8 @@ if ENV['INTEGRATION_TEST'] == 'true'
       driven_by :custom_selenium
     end
   end
+
+  Sidekiq::Testing.inline!
 end
 
 RSpec.configure do |config|

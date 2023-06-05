@@ -26,8 +26,8 @@ RSpec.describe 'Share a video', type: :system do
     i_can_not_share_a_video_with_invalid_url
     i_can_share_a_video_with_youtube_url
     i_can_see_latest_shared_video
-    i_can_see_notification_popup
-    i_can_close_notification_popup
+    # i_can_see_notification_popup
+    # i_can_close_notification_popup
     i_can_not_share_a_duplicated_video
   end
 

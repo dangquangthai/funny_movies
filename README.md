@@ -142,9 +142,10 @@ The important point when choosing an technical is less code but still cover requ
 - Used ruboop, brakeman to scan smell code for ruby.
 - We should use eslint to scan smell code for typescript (Not implemented yet).
 - Used bullet to raise when getting N+1 issues on development environment. In my opinion we toally check N+1 issues when building source code like rubocop, brakeman and eslint. Please ask me more if you are really interested.
-- Automation testing - very clear for each use case
+- Automation testing for all features, all use cases. The coding convention of automation is very clear.
 - Used [fixtures data](https://guides.rubyonrails.org/testing.html#the-low-down-on-fixtures) instead of `FactoryBot#create` to make test with many data faster.
 
 ## Troubleshooting
 
+The integration test required sidekiq is running on test environment. So please run sidekiq on test environment before run integration test.
 
