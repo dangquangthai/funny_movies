@@ -15,6 +15,7 @@ List required software and tools:
 - sqlite3
 - Redis 7.0.11.
 - chromedriver 113.0.5672.63
+- Docker
 
 ## Installation & Configuration
 
@@ -33,20 +34,19 @@ ruby 3.1.2p20 (2022-04-12 revision 4491bb740a) [arm64-darwin22]
 Use node version manager to install node e.g [nvm](https://github.com/nvm-sh/nvm). After installed nvm just run simple command
 
 ```
-nvm install 14.16.0 # on Ubuntu
-or
-nvm install 14.16.1 # on macOS
+nvm install 14.16.1
+nvm alias default 14.16.0 or 14.16.1
+nvm use default 14.16.0 or 14.16.1
 ```
 
-Check node version by `node --version` you will see similar message
+Check node version by `node --version && yarn --version` you will see similar message
 
 ```
-v14.16.1 # on macOS
-OR
-v14.16.0 # on Ubuntu
+v14.16.1
+1.22.1
 ```
 
-Install sqlite3 on ubuntu jsut do `sudo apt-get install sqlite3 libsqlite3-dev`. Install on macOS just do `brew install sqlite`. Check sqlite is ready by `sqlite3 --version` you will see similar message
+Install sqlite3 on ubuntu jsut do `sudo apt-get install libssl-dev sqlite3`. Install on macOS just do `brew install sqlite`. Check sqlite is ready by `sqlite3 --version` you will see similar message
 
 ```
 3.39.5 2022-10-14 20:58:05 554764a6e721fab307c63a4f98cd958c8428a5d9d8edfde951858d6fd02daapl
@@ -110,9 +110,21 @@ Run integration tests
 RAILS_ENV=test rails db:schema:load db:fixtures:load && INTEGRATION_TEST=true bundle exec rspec spec/integration/
 ```
 
-## (BE/FS) Docker Deployment
+## Running the Application with Docker
 
-Instructions for deploying the application using Docker, including building the Docker image and running containers (optional for Backend developer)
+Install docker [here](https://docs.docker.com/desktop/install/mac-install/), then start docker.
+
+For first time
+
+```
+cd ~/workspaces/funny_movies && docker-compose build && docker-compose up
+```
+
+Not first time
+
+```
+cd ~/workspaces/funny_movies && docker-compose up
+```
 
 ## Usage
 
@@ -147,5 +159,6 @@ The important point when choosing an technical is less code but still cover requ
 
 ## Troubleshooting
 
-The integration test required sidekiq is running on test environment. So please run sidekiq on test environment before run integration test.
+- The integration test required sidekiq is running on test environment. So please run sidekiq on test environment before run integration test.
+- When getting error with `docker-compose up` just re-run it.
 
