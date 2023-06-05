@@ -10,6 +10,7 @@ class Video < ApplicationRecord
 
   validates :source_url, presence: true
   validates :source, inclusion: { in: SOURCES }
+  validates :source_id, uniqueness: { scope: %i[source user_id], message: 'has already been shared' }
 
   belongs_to :user
 

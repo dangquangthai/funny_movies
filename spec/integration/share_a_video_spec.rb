@@ -28,6 +28,16 @@ RSpec.describe 'Share a video', type: :system do
     i_can_see_latest_shared_video
     i_can_see_notification_popup
     i_can_close_notification_popup
+    i_can_not_share_a_duplicated_video
+  end
+
+  def i_can_not_share_a_duplicated_video
+    click_on 'Share a movie'
+
+    fill_in 'video[source_url]', with: 'https://www.youtube.com/watch?v=Ad22wfm4tJs'
+    click_on 'Share'
+
+    expect(page).to have_selector('div.text-red-600', text: 'Source has already been shared')
   end
 
   def i_can_see_latest_shared_video

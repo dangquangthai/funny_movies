@@ -2,6 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Video, type: :model do
   describe '.validations' do
+    it { should validate_inclusion_of(:source).in_array(%w[youtube vimeo]) }
+    it { should validate_uniqueness_of(:source_id).scoped_to(%i[source user_id]) }
+
     describe '#source_url' do
       subject { build(:video) }
 
