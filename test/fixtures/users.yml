@@ -4,7 +4,9 @@ DEFAULTS: &user_settings
 smith:
   <<: *user_settings
   email: smith@remitano.com
+  name: Smith
 
 john:
   <<: *user_settings
   email: john@remitano.com
+  name: John

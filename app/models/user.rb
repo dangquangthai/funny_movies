@@ -9,6 +9,7 @@ class User < ApplicationRecord
   has_many :videos, dependent: :destroy
   has_many :notifications, dependent: :destroy
 
+  validates :name, presence: true
   validates :email, presence: true, uniqueness: true,
                     format: {
                       with: Devise.email_regexp,
