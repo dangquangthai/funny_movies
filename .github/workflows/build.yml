@@ -1,0 +1,89 @@
+name: build
+
+on:
+  pull_request:
+
+env:
+  RAILS_ENV: test
+  COVERAGE: true
+
+jobs:
+  code_check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
+      - name: Bundle Install
+        run: |
+          gem install bundler --version 2.3.21
+          bundle install --jobs 4 --retry 3
+      - name: Rubocop
+        run: bundle exec rubocop
+      - name: Brakeman
+        run: bundle exec brakeman --exit-on-warn
+
+  coverage_check:
+    needs: 
+      - unit_tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
+      - name: Bundle Install
+        run: |
+          gem install bundler --version 2.3.3
+          bundle install --jobs 4 --retry 3
+      - name: Download coverage reports
+        uses: actions/download-artifact@v3
+      - name: Merge and check coverage
+        run: |
+          mkdir coverage_results
+          mv resultset-*/.resultset-*.json coverage_results/
+          ls -la coverage_results/
+          bundle exec rake coverage:report
+      - name: Simplecov Report
+        uses: aki77/simplecov-report-action@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          failedThreshold: 99
+      - name: Delete all artifacts
+        uses: geekyeggo/delete-artifact@v2
+        with:
+          name: resultset-*
+
+  unit_tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: 3.1.2
+          bundler-cache: true
+      - name: Bundle Install
+        run: |
+          gem install bundler --version 2.3.3
+          bundle install --jobs 4 --retry 3
+      - name: Install node
+        uses: actions/setup-node@v3
+        with:
+          node-version: 14.16.0
+      - name: JS/CSS build
+        run: yarn run build && yarn run build:css
+      - name: Setup database
+        run: bundle exec rails db:create db:schema:load
+      - name: Run tests
+        run: bundle exec rspec spec/ -f p
+      - name: Upload coverage results
+        uses: actions/upload-artifact@v3
+        with:
+          name: resultset-unit-tests
+          path: coverage/.resultset-unit-tests.json
